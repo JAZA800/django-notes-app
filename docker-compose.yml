@@ -1,22 +1,9 @@
 version: "3.8"
 
 services:
-  nginx:
-    build: ./nginx
-    image: nginx
-    container_name: "nginx_cont"
-    ports:
-      - "80:80"
-    restart: always
-    depends_on:
-      - django_app
-    networks:
-      - notes-app-nw
 
-  django_app:
-    build:
-      context: .
-    image: django_app
+  web:
+    image: jaza1242/notes-app:latest
     container_name: "django_cont"
     ports:
       - "8000:8000"
@@ -32,6 +19,18 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
+    networks:
+      - notes-app-nw
+
+  nginx:
+    build: ./nginx
+    image: nginx
+    container_name: "nginx_cont"
+    ports:
+      - "80:80"
+    restart: always
+    depends_on:
+      - web
     networks:
       - notes-app-nw
 
