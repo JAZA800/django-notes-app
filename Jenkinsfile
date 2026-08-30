@@ -1,27 +1,27 @@
-@Library('Shared')_
+@Library('Shared') _
 pipeline{
-    agent { label 'dev-server'}
+    agent { label 'wick'}
     
     stages{
         stage("Code clone"){
             steps{
-                sh "whoami"
-            clone("https://github.com/JAZA800/django-notes-app.git","main")
+            clone("https://github.com/LondheShubham153/django-notes-app.git","main")
             }
         }
         stage("Code Build"){
             steps{
-            dockerbuild("notes-app","latest")
+            docker_build("notes-app","latest","jaza1242")
             }
         }
         stage("Push to DockerHub"){
             steps{
-                dockerpush("dockerHubCreds","notes-app","latest")
+                docker_push("notes-app","latest","jaza1242")
             }
         }
         stage("Deploy"){
             steps{
-                deploy()
+                echo "this is deploying the code"
+                sh "docker compose up -d"
             }
         }
         
