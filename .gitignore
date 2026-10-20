@@ -1,0 +1,12 @@
+# Environment secrets
+.env
+.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# MySQL database data
+data/mysql/
